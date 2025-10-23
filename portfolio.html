@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Zaid | MERN Stack Developer Portfolio</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for a modern look -->
+    <script src="https://unpkg.com/lucide@latest"></script> 
+    
+    <style>
+        /* Custom Font and Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0e13; /* Industrial Dark Background */
+            color: #e2e8f0; /* Lighter Text for Better Contrast */
+            scroll-behavior: smooth;
+        }
+
+        /* Highlight Color: Modern Electric Blue */
+        .text-accent { color: #00aaff; }
+        .bg-accent { background-color: #00aaff; }
+        .hover\:bg-accent-hover:hover { background-color: #0088cc; }
+        .border-accent { border-color: #00aaff; }
+
+        /* Custom Card Background (Industrial Steel Look) */
+        .card-bg { 
+            background-color: #151b23; 
+            border: 1px solid #1e2936;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Professional Sticky Navbar Style */
+        .sticky-nav {
+            backdrop-filter: blur(15px);
+            background-color: rgba(10, 14, 19, 0.9);
+            border-bottom: 1px solid #1e2936;
+            z-index: 1000;
+        }
+
+        /* --- Scroll Reveal Animations --- */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #00aaff; /* Blue hue */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0e13;
+        }
+
+        /* Hover effect for interactive elements */
+        .interactive-hover {
+            transition: all 0.3s ease;
+        }
+        .interactive-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 170, 255, 0.3);
+        }
+
+        /* Profile Image Styling */
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #00aaff;
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.5);
+        }
+
+        /* Skill Bar Animation */
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #1e2936;
+            position: relative;
+            overflow: hidden;
+        }
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #00aaff, #0088cc);
+            width: 0;
+            animation: fillBar 1.5s ease-out forwards;
+        }
+        @keyframes fillBar {
+            to { width: var(--skill-level); }
+        }
+
+        /* Project Card Enhancements */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1), transparent);
+            z-index: 0;
+        }
+        .project-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Project Link Button */
+        .project-link-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 170, 255, 0.1);
+            border: 1px solid #00aaff;
+            color: #00aaff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .project-link-btn:hover {
+            background-color: #00aaff;
+            color: #0a0e13;
+        }
+
+        /* Hero Section Gradient */
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(0, 170, 255, 0.1), transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(0, 170, 255, 0.05), transparent 40%);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00aaff, transparent);
+            margin: 3rem 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 sticky-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#hero" class="text-2xl font-extrabold text-accent tracking-wider">FULL STACK DEVELOPER</a>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-4 lg:space-x-8">
+                    <a href="#skills" class="text-gray-300 hover:text-accent px-3 py-2 rounded-lg text-sm font-medium transition duration-150 interactive-hover">Skills</a>
+                    <a href="#projects" class="text-gray-300 hover:text-accent px-3 py-2 rounded-lg text-sm font-medium transition duration-150 interactive-hover">Projects</a>
+                    <a href="#experience" class="text-gray-300 hover:text-accent px-3 py-2 rounded-lg text-sm font-medium transition duration-150 interactive-hover">Experience</a>
+                    <a href="mailto:zaidzaid0342@gmail.com" class="bg-accent text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-accent-hover transition duration-300 interactive-hover">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="flex flex-col md:flex-row items-center justify-between py-20 min-h-[80vh] mb-12 fade-in-section hero-gradient">
+            <div class="md:w-3/5">
+                <p class="text-lg text-gray-400 mb-2">Hello, I'm</p>
+                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black leading-tight text-white mb-4">
+                    MOHAMMED <span class="text-accent">ZAID</span>
+                </h1>
+                <h2 class="text-3xl font-light text-gray-300 mb-6">
+                    Full Stack MERN Developer | Generative AI Enthusiast
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mb-8">
+                    Leveraging MERN stack expertise and Generative AI to engineer secure, innovative, and user-friendly applications that drive organizational success.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#projects" class="bg-accent text-white font-semibold py-3 px-8 rounded-xl shadow-xl hover:bg-accent-hover transition duration-300 text-center interactive-hover">
+                        <i data-lucide="monitor" class="w-5 h-5 inline mr-2"></i> View Projects
+                    </a>
+                    <a href="https://www.linkedin.com/in/mohammed-zaid-089552379/" target="_blank" class="text-gray-300 border border-gray-600 py-3 px-8 rounded-xl hover:border-accent hover:text-accent transition duration-300 text-center interactive-hover">
+                        <i data-lucide="linkedin" class="w-5 h-5 inline mr-2"></i> LinkedIn Profile
+                    </a>
+                </div>
+            </div>
+            <!-- Profile Image -->
+            <div class="md:w-2/5 mt-10 md:mt-0 flex justify-center">
+                <img src="images/WhatsApp Image 2025-10-22 at 7.49.34 AM (1).jpeg" alt="Mohammed Zaid" class="profile-img">
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 2. Technical Skills Section -->
+        <section id="skills" class="py-16 mb-12 fade-in-section">
+            <h2 class="text-4xl font-bold text-white mb-10 border-b-4 border-accent inline-block pb-2">Technical Stack</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Programming & Core -->
+                <div class="card-bg p-6 rounded-xl interactive-hover">
+                    <h3 class="text-2xl font-semibold text-accent mb-4 flex items-center">
+                        <i data-lucide="code" class="w-6 h-6 mr-2"></i> Programming
+                    </h3>
+                    <ul class="space-y-3 text-gray-400 mb-4">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-yellow-400 mr-2"></span> JavaScript (ES6+)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-yellow-400 mr-2"></span> HTML5, CSS3</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-yellow-400 mr-2"></span> Python</li>
+                    </ul>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 90%"></div>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div class="card-bg p-6 rounded-xl interactive-hover">
+                    <h3 class="text-2xl font-semibold text-accent mb-4 flex items-center">
+                        <i data-lucide="layout-grid" class="w-6 h-6 mr-2"></i> Frontend
+                    </h3>
+                    <ul class="space-y-3 text-gray-400 mb-4">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> React.js (Hooks, Context)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> Tailwind CSS, Bootstrap</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> Responsive Design</li>
+                    </ul>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 85%"></div>
+                    </div>
+                </div>
+
+                <!-- Backend & Database -->
+                <div class="card-bg p-6 rounded-xl interactive-hover">
+                    <h3 class="text-2xl font-semibold text-accent mb-4 flex items-center">
+                        <i data-lucide="server" class="w-6 h-6 mr-2"></i> Backend & DB
+                    </h3>
+                    <ul class="space-y-3 text-gray-400 mb-4">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-red-400 mr-2"></span> Node.js, Express.js</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-red-400 mr-2"></span> MongoDB (Mongoose)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-red-400 mr-2"></span> RESTful APIs</li>
+                    </ul>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 80%"></div>
+                    </div>
+                </div>
+
+                <!-- Tools & Concepts -->
+                <div class="card-bg p-6 rounded-xl interactive-hover">
+                    <h3 class="text-2xl font-semibold text-accent mb-4 flex items-center">
+                        <i data-lucide="settings" class="w-6 h-6 mr-2"></i> DevOps & Tools
+                    </h3>
+                    <ul class="space-y-3 text-gray-400 mb-4">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> Git, GitHub</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> Generative AI (APIs)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> JWT Auth, Agile</li>
+                    </ul>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 3. Selected Projects Section -->
+        <section id="projects" class="py-16 mb-12 fade-in-section">
+            <h2 class="text-4xl font-bold text-white mb-10 border-b-4 border-accent inline-block pb-2">Selected Projects</h2>
+            <p class="text-gray-400 mb-12 max-w-3xl">Highlights of full-stack applications developed, showcasing robust CRUD operations, secure authentication, and optimized database schemas.</p>
+
+            <div class="space-y-12">
+
+                <!-- Project 1: Tourist Packages Booking Website -->
+                <div class="project-card card-bg p-6 lg:p-10 rounded-xl shadow-2xl border border-gray-700 hover:border-accent transition duration-300 grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-section">
+                    <!-- Image Mockup (1 of 3) -->
+                    <div class="lg:col-span-2">
+                         <h3 class="text-3xl font-bold text-accent mb-2">
+                            <a href="https://ezeetrip.vercel.app/" target="_blank" class="hover:underline">Tourist Packages Booking Website</a>
+                            <span class="text-sm text-gray-400 font-normal ml-2">(Freelance)</span>
+                        </h3>
+                        <p class="text-gray-400 mb-4 text-lg">Full-stack platform for browsing, booking, and managing travel, resort, and food packages.</p>
+                        <ul class="text-gray-400 space-y-2 list-disc list-inside ml-4 text-sm">
+                            <li>Developed and deployed a secure, mobile-friendly UI with detailed package views.</li>
+                            <li>Integrated a secure Admin Dashboard for package management (CRUD) with role-based access controls.</li>
+                            <li>Implemented robust user authentication and payment integration readiness.</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <span class="bg-blue-900/30 text-blue-400 text-xs px-2 py-1 rounded">React.js</span>
+                            <span class="bg-green-900/30 text-green-400 text-xs px-2 py-1 rounded">Node.js</span>
+                            <span class="bg-yellow-900/30 text-yellow-400 text-xs px-2 py-1 rounded">MongoDB</span>
+                            <a href="https://ezeetrip.vercel.app/" target="_blank" class="project-link-btn">
+                                <i data-lucide="external-link" class="w-4 h-4 mr-1"></i> Visit Site
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <!-- Project 2: Cafe Management System -->
+                <div class="project-card card-bg p-6 lg:p-10 rounded-xl shadow-2xl border border-gray-700 hover:border-accent transition duration-300 grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-section">
+                     <!-- Image Mockup (2 of 3) -->
+                    <div class="lg:col-span-1 flex justify-center items-center order-2 lg:order-1">
+                       
+                            <img src="images/Screenshot (191).png" alt="Cafe Management System Mockup" class="w-full h-auto rounded-lg object-cover border border-gray-600 hover:border-accent transition duration-300">
+                        </a>
+                    </div>
+                    <div class="lg:col-span-2 order-1 lg:order-2">
+                        <h3 class="text-3xl font-bold text-accent mb-2">
+                            <a href="#" target="_blank" class="hover:underline">Cafe Management System</a>
+                            <span class="text-sm text-gray-400 font-normal ml-2">(Freelance)</span>
+                        </h3>
+                        <p class="text-gray-400 mb-4 text-lg">Comprehensive system for menu management, order tracking, and inventory control.</p>
+                        <ul class="text-gray-400 space-y-2 list-disc list-inside ml-4 text-sm">
+                            <li>Built an Admin Dashboard supporting sales analytics and detailed inventory reports.</li>
+                            <li>Implemented JWT authentication and secure data encryption for sensitive records.</li>
+                            <li>Features include menu management, order tracking, inventory, and loyalty programs.</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <span class="bg-blue-900/30 text-blue-400 text-xs px-2 py-1 rounded">React.js</span>
+                            <span class="bg-green-900/30 text-green-400 text-xs px-2 py-1 rounded">Express.js</span>
+                            <span class="bg-yellow-900/30 text-yellow-400 text-xs px-2 py-1 rounded">MongoDB</span>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Estate Ease - Real Estate Platform -->
+                <div class="project-card card-bg p-6 lg:p-10 rounded-xl shadow-2xl border border-gray-700 hover:border-accent transition duration-300 grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-section">
+                    <!-- Image Mockup (3 of 3) -->
+                    <div class="lg:col-span-2">
+                        <h3 class="text-3xl font-bold text-accent mb-2">
+                            <a href="#" target="_blank" class="hover:underline">Estate Ease - Real Estate Platform</a>
+                        </h3>
+                        <p class="text-gray-400 mb-4 text-lg">Property listing, selling, and renting platform with collaborative features.</p>
+                        <ul class="text-gray-400 space-y-2 list-disc list-inside ml-4 text-sm">
+                            <li>Engineered robust search and filter functionality for property discovery.</li>
+                            <li>Integrated a real-time chat system and notification module for user inquiries.</li>
+                            <li>Utilized optimized MongoDB schemas for efficient data retrieval.</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <span class="bg-blue-900/30 text-blue-400 text-xs px-2 py-1 rounded">React.js</span>
+                            <span class="bg-green-900/30 text-green-400 text-xs px-2 py-1 rounded">Node.js</span>
+                            <span class="bg-yellow-900/30 text-yellow-400 text-xs px-2 py-1 rounded">Socket.io</span>
+                           
+                        </div>
+                    </div>
+                    <div class="lg:col-span-1 flex justify-center items-center">
+                        <a href="https://your-estate-platform.com" target="_blank" class="block">
+                            <img src="images/Screenshot (192).png" alt="Estate Ease Real Estate Mockup" class="w-full h-auto rounded-lg object-cover border border-gray-600 hover:border-accent transition duration-300">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Other Projects Grid -->
+                <div class="pt-8 fade-in-section">
+                    <h3 class="text-2xl font-bold text-white mb-6">Other Key Projects</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card-bg p-6 rounded-lg border border-gray-700 interactive-hover">
+                            <h4 class="text-xl font-semibold text-gray-300 mb-2">
+                                <a href="https://your-mental-health-site.com" target="_blank" class="hover:text-accent transition">Mental Health Wellness Website</a>
+                            </h4>
+                            <p class="text-gray-500 text-sm">Developed doctor/patient dashboards, appointment scheduling, secure messaging, and engagement features (blogs/podcasts).</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="bg-blue-900/30 text-blue-400 text-xs px-2 py-1 rounded">MERN</span>
+                                <span class="bg-purple-900/30 text-purple-400 text-xs px-2 py-1 rounded">JWT</span>
+                                <a href="https://your-mental-health-site.com" target="_blank" class="text-xs text-accent hover:underline">View Project →</a>
+                            </div>
+                        </div>
+                        <div class="card-bg p-6 rounded-lg border border-gray-700 interactive-hover">
+                            <h4 class="text-xl font-semibold text-gray-300 mb-2">
+                                <a href="https://your-school-platform.com" target="_blank" class="hover:text-accent transition">School Management Website</a>
+                            </h4>
+                            <p class="text-gray-500 text-sm">Built a student portal for homework submission, grade tracking, and administrative tasks.</p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <span class="bg-blue-900/30 text-blue-400 text-xs px-2 py-1 rounded">MERN</span>
+                                <span class="bg-red-900/30 text-red-400 text-xs px-2 py-1 rounded">Redux</span>
+                                <a href="https://your-school-platform.com" target="_blank" class="text-xs text-accent hover:underline">View Project →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 4. Experience & Education Section -->
+        <section id="experience" class="py-16 mb-12 fade-in-section">
+            <h2 class="text-4xl font-bold text-white mb-10 border-b-4 border-accent inline-block pb-2">Experience & Education</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Experience Block -->
+                <div class="space-y-8">
+                    <h3 class="text-3xl font-semibold text-accent mb-4">Professional Experience</h3>
+                    
+                    <div class="card-bg p-6 rounded-xl border border-gray-700 interactive-hover">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-xl font-bold text-white">Web Developer Intern & Freelancer</h4>
+                            <span class="text-sm text-gray-500">Jan 2025 - Mar 2025</span>
+                        </div>
+                        <p class="text-gray-400 font-semibold mb-2">Academic Internship & Freelance Operations</p>
+                        <ul class="text-gray-400 space-y-1 list-disc list-inside text-sm ml-4">
+                            <li>Successfully developed 3+ academic projects using the MERN stack and Agile methodologies.</li>
+                            <li>Improved UI/UX of applications through responsive design implementations across multiple devices.</li>
+                            <li>Operated as a Freelancer, developing 5+ client websites, gaining practical experience in deployment and client communication.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-bg p-6 rounded-xl border border-gray-700 interactive-hover">
+                        <h4 class="text-xl font-bold text-white mb-2">Certifications & Achievements</h4>
+                        <ul class="text-gray-400 space-y-1 list-disc list-inside text-sm ml-4">
+                            <li>Software Engineering Job Simulation (J.P. Morgan Chase & Co)</li>
+                            <li>Web Development Course (Unified Mentor), Business Leadership (Simplilearn).</li>
+                            <li>Developed 6+ academic and 10+ personal projects using the MERN stack.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education Block -->
+                <div class="space-y-8">
+                    <h3 class="text-3xl font-semibold text-accent mb-4">Academic Background</h3>
+                    
+                    <div class="card-bg p-6 rounded-xl border border-gray-700 interactive-hover">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-xl font-bold text-white">Bachelor of Computer Applications (BCA)</h4>
+                            <span class="text-sm text-gray-500">Graduated June 2025</span>
+                        </div>
+                        <p class="text-gray-400 font-semibold mb-2">Kuvempu University</p>
+                        <p class="text-gray-300">CGPA: 9.13</p>
+                    </div>
+
+                    <div class="card-bg p-6 rounded-xl border border-gray-700 interactive-hover">
+                        <h4 class="text-xl font-bold text-white mb-2">Pre-University & Secondary Education</h4>
+                        <ul class="text-gray-400 space-y-1 list-disc list-inside text-sm ml-4">
+                            <li>Pre-University (CEBA) | MES SSM PU College | 95%</li>
+                            <li>Secondary Education | Lake View Cambridge School | 85%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 5. Footer and Contact -->
+        <footer class="py-10 text-center fade-in-section">
+            <p class="text-gray-500 mb-4">
+                Designed and Developed by Mohammed Zaid | MERN Stack Developer
+            </p>
+            <p class="text-gray-500 text-sm mb-4">
+                Chikkmagalur, India | Mobile: 7483052937
+            </p>
+            <div class="flex justify-center space-x-6">
+                <a href="mailto:zaidzaid0342@gmail.com" class="text-gray-400 hover:text-accent transition duration-150" aria-label="Email">
+                    <i data-lucide="mail" class="w-6 h-6"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mohammed-zaid-089552379/" target="_blank" class="text-gray-400 hover:text-accent transition duration-150" aria-label="LinkedIn">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                </a>
+                <a href="https://github.com/zaidzaid0342-dotcom" target="_blank" class="text-gray-400 hover:text-accent transition duration-150" aria-label="GitHub Profile">
+                    <i data-lucide="github" class="w-6 h-6"></i>
+                </a>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript for Scroll Reveal (Intersection Observer) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Initialize Lucide icons
+            lucide.createIcons();
+
+            // Set up the Intersection Observer for the smooth scroll-in effect
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.1 // Start animation when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Element is in the viewport, add the visible class
+                        entry.target.classList.add('is-visible');
+                        // Stop observing once the element has appeared
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Target all sections and project cards for the animation
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
